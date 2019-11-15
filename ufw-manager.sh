@@ -22,7 +22,7 @@ CHOICE=$(dialog --clear \
                 $HEIGHT $WIDTH $CHOICE_HEIGHT \
                 "${OPTIONS[@]}" \
                 2>&1 >$TERMINAL
-
+)
 clear
 case $CHOICE in
         1)
@@ -43,6 +43,7 @@ case $CHOICE in
             ;;
         3)
             echo "What port do you wish to close?"
+        
             sleep 5
             clear
             echo ""
