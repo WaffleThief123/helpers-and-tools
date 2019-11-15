@@ -12,8 +12,8 @@ TERMINAL=$(tty)
 mkdir /tmp/ufwmanager
 
 OPTIONS=(1 "View Rules"
-         2 "Add a Rule"
-         3 "Delete a Rule")
+         2 "Allow a Port"
+         3 "Deny a Port")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -22,7 +22,7 @@ CHOICE=$(dialog --clear \
                 $HEIGHT $WIDTH $CHOICE_HEIGHT \
                 "${OPTIONS[@]}" \
                 2>&1 >$TERMINAL
-)
+)  
 clear
 case $CHOICE in
         1)
@@ -32,8 +32,8 @@ case $CHOICE in
             cat /tmp/ufwmanager/rules
             ;;
         2)
-            echo "You've chosen to add a rule"
-            sleep 5
+            echo "You've chosen to add an ALLOW rule"
+            sleep 3
             clear
             echo ""
             echo "What port do you wish to open?"
@@ -42,15 +42,15 @@ case $CHOICE in
             ufw status verbose
             ;;
         3)
-            echo "What port do you wish to close?"
+            echo "You've chosen to add a DENY rule."
         
-            sleep 5
+            sleep 3
             clear
             echo ""
-            echo "What port do you wish to open?"
+            echo "What port do you wish to close?"
             read closeport
             ufw deny $closeport
             ufw status verbose
             ;;
-rm -rf /tmp/ufwmanager
+# rm -rf /tmp/ufwmanager
 esac
