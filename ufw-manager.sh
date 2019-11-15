@@ -28,7 +28,7 @@ case $CHOICE in
         1)
             clear
             echo "Here are your firewall rules"
-            ufw status verbose >> /tmp/ufwmanager/rules
+            ufw status verbose > /tmp/ufwmanager/rules
             cat /tmp/ufwmanager/rules
             ;;
         2)
