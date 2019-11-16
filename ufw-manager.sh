@@ -14,7 +14,8 @@ fi
 OPTIONS=(1 "View Rules"
          2 "Allow a Port"
          3 "Deny a Port"
-         4 "Remove a Rule")
+         4 "Remove a Rule"
+         5 "Exit with No Change")
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
                 --title "$TITLE" \
@@ -64,6 +65,10 @@ case $CHOICE in
             echo ""
             read removerule
             ufw delete $removerule
+            ;;
+        5) 
+            rm -rf /tmp/ufwmanager
+            exit
             ;;
 esac
 
