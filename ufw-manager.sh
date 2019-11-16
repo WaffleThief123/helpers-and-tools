@@ -30,6 +30,7 @@ case $CHOICE in
             echo "Here are your firewall rules"
             ufw status verbose > /tmp/ufwmanager/rules
             cat /tmp/ufwmanager/rules
+            rm -rf /tmp/ufwmanager
             ;;
         2)
             echo "You've chosen to add an ALLOW rule"
