@@ -55,6 +55,7 @@ case $CHOICE in
             ufw allow $openport
             ufw status verbose
             ;;
+            
             2) 
             echo "You've chosen to add a DENY rule."
             sleep 3
