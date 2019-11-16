@@ -7,11 +7,14 @@ TITLE="UFW Helper"
 MENU="Choose one of the following options:"
 TERMINAL=$(tty)
 mkdir /tmp/ufwmanager
+if [ "$EUID" -ne 0 ]
+  then echo "Please run with sudo! I Need Elevated Permissions!"
+  exit
+fi
 OPTIONS=(1 "View Rules"
          2 "Allow a Port"
          3 "Deny a Port"
          4 "Remove a Rule")
-
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
                 --title "$TITLE" \
