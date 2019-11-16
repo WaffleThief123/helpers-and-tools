@@ -1,5 +1,4 @@
 #!/bin/bash
-
 HEIGHT=15
 WIDTH=40
 CHOICE_HEIGHT=4
@@ -7,10 +6,7 @@ BACKTITLE="UFW Helper"
 TITLE="UFW Helper"
 MENU="Choose one of the following options:"
 TERMINAL=$(tty)
-
-
 mkdir /tmp/ufwmanager
-
 OPTIONS=(1 "View Rules"
          2 "Allow traffic Through a Port"
          3 "Deny a Port"
@@ -68,3 +64,12 @@ case $CHOICE in
             ufw delete $removerule
             ;;
 esac
+
+echo "END OF LINE"
+##################################
+#                                #
+#   This Script was written by   #
+#       Qwerty Keyboarder        #
+#  https://github.com/wertyy102  #
+#                                #
+##################################
