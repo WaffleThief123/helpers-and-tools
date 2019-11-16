@@ -8,9 +8,9 @@ MENU="Choose one of the following options:"
 TERMINAL=$(tty)
 mkdir /tmp/ufwmanager
 OPTIONS=(1 "View Rules"
-         2 "Allow traffic Through a Port"
+         2 "Allow a Port"
          3 "Deny a Port"
-         4 "Remove a rule")
+         4 "Remove a Rule")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -43,7 +43,6 @@ case $CHOICE in
             
         3)
             echo "You've chosen to add a DENY rule."
-        
             sleep 3
             clear
             echo ""
