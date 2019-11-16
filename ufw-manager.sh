@@ -67,6 +67,4 @@ case $CHOICE in
         read removerule
         ufw delete $removerule
         ;;
-
-echo "END OF LINE"
 esac
