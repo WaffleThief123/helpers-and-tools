@@ -12,8 +12,9 @@ TERMINAL=$(tty)
 mkdir /tmp/ufwmanager
 
 OPTIONS=(1 "View Rules"
-         2 "Add Rules"
-         3 "Deny a Port")
+         2 "Allow traffic Through a Port"
+         3 "Deny a Port"
+         4 "Remove a rule")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -33,40 +34,17 @@ case $CHOICE in
             rm -rf /tmp/ufwmanager
             ;;
         2)
-            echo "You've chosen to add a new rule"
+            echo "You've chosen to add an ALLOW rule"
             sleep 3
             clear
-            OPTIONS=(1 "Allow a Port"
-            2 "Deny a Port")
-            CHOICE=$(dialog --clear \
-                --backtitle "$BACKTITLE" \
-                --title "$TITLE" \
-                --menu "$MENU" \
-                $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                "${OPTIONS[@]}" \
-                2>&1 >$TERMINAL
-                )  
-            
-            1) 
             echo "You've chosen to add an ALLOW rule."
             echo ""
-            echo "What port do you wish to allow traffic to and from?"
+            echo "What port do you wish to ALLOW traffic"
             read openport
             ufw allow $openport
             ufw status verbose
             ;;
             
-            2) 
-            echo "You've chosen to add a DENY rule."
-            sleep 3
-            clear
-            echo ""
-            echo "What port do you wish to close?"
-            read closeport
-            ufw deny $closeport
-            ufw status verbose
-            ;;
-        
         3)
             echo "You've chosen to add a DENY rule."
         
