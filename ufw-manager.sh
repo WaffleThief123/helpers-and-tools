@@ -1,7 +1,7 @@
 #!/bin/bash
 HEIGHT=15
 WIDTH=40
-CHOICE_HEIGHT=4
+CHOICE_HEIGHT=5
 BACKTITLE="UFW Helper"
 TITLE="UFW Helper"
 MENU="Choose one of the following options:"
