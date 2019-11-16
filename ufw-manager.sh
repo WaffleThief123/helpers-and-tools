@@ -52,5 +52,4 @@ case $CHOICE in
             ufw deny $closeport
             ufw status verbose
             ;;
-# rm -rf /tmp/ufwmanager
 esac
