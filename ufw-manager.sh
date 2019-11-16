@@ -57,14 +57,14 @@ case $CHOICE in
             ufw status verbose
             ;;
         4)
-        echo "You've chosen to remove a current rule"
-        sleep 3
-        clear
-        ufw status numbered verbose > /tmp/ufwmanager/numbered
-        cat /tmp/ufwmanager/numbered
-        echo "Which rule number would you like to remove?"
-        echo ""
-        read removerule
-        ufw delete $removerule
-        ;;
+            echo "You've chosen to remove a current rule"
+            sleep 3
+            clear
+            ufw status numbered verbose > /tmp/ufwmanager/numbered
+            cat /tmp/ufwmanager/numbered
+            echo "Which rule number would you like to remove?"
+            echo ""
+            read removerule
+            ufw delete $removerule
+            ;;
 esac
