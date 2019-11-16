@@ -68,4 +68,5 @@ case $CHOICE in
         ufw delete $removerule
         ;;
 
+echo "END OF LINE"
 esac
