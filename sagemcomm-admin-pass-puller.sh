@@ -15,5 +15,6 @@ echo "Please enter the IP of sagemcomm Modem/Router"
 echo ""
 read IP_ADDRESS 
 wget "http://$IP_ADDRESS/password.html" --output-document=/tmp/`$IP_ADDRESS`_`$timeday`.html
-USER_PASSWORD=`wget http://$IP_ADDRESS/password.html -t 1 -q -O -  | grep "pwdAdmin" | tr " = " "\n" | grep "'" | tr -d "';" `
+# USER_PASSWORD=`wget http://$IP_ADDRESS/password.html -t 1 -q -O -  | grep "pwdAdmin" | tr " = " "\n" | grep "'" | tr -d "';" `
+USER_PASSWORD=`cat /tmp/`$IP_ADDRESS`_`$timeday`.html  | grep "pwdAdmin" | tr " = " "\n" | grep "'" | tr -d "';" `
 echo "admin password = $USER_PASSWORD"
