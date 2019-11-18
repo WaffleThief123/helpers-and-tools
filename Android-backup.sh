@@ -16,4 +16,3 @@ case "$?" in
 		kdialog --error "ERROR";
 		;;
 esac;
-
