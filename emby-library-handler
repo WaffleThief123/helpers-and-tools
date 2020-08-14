@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Permissions changing of each independent directory to ensure emby can play the new content added
+chown emby:emby /opt/emby/media-dir/Movies -R
+chown emby:emby /opt/emby/media-dir/Anime -R
+chown emby:emby /opt/emby/media-dir/TV -R
+chown emby:emby /opt/emby/media-dir/Music\ FLAC -R
+chown emby:emby /opt/emby/media-dir/Live\ Performances -R
+chmod 775 /opt/emby/media-dir/Movies -R
+chmod 775 /opt/emby/media-dir/Anime -R
+chmod 775 /opt/emby/media-dir/TV -R
+chmod 775 /opt/emby/media-dir/Music\ FLAC -R
+chmod 775 /opt/emby/media-dir/Live\ Performances -R
+echo "Permissions Changed for all files in Media Directories." | systemd-cat -t emby-server -p info
+
+# API request to reindex library
+curl --location --request POST 'http://docker.set-l.space:8096/Library/Refresh?api_key=b56abfe7ff94469293837396d88a2791' -d ""
+# logging
+#logging to systemd
+echo "Emby Libarary was reindexed.  Momentary Server CPU spike expected." | systemd-cat -t emby-server -p info
+echo "Emby Libarary was reindexed.  Momentary disk I/O spike expected." | systemd-cat -t emby-server -p info
+# logging to messages
+echo "[ $(date) ] Emby Libarary was reindexed.  Momentary Server CPU spike expected." >> /var/log/messages
+echo "[ $(date) ] Emby Libarary was reindexed.  Momentary disk I/O spike expected." >> /var/log/messages
