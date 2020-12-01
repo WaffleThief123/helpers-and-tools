@@ -18,7 +18,7 @@ echo "What's the SSH password for your vpn box?"
 read -sp 'Password: ' rsync_password
 
 # Base Utility Install and prep
-apt update && apt install rsync sshpass neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common -y
+apt update && apt install rsync sshpass neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common qemu-guest-agent -y
 sleep 1
 # Docker and Docker-Compose install
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -55,5 +55,9 @@ aka: Root has logs, fuck off and fuck you.
 
 This machine's purpose is to $i
 EOT
+
+
+# Add cron job to enable qemu-guest-agent on reboot
+(crontab -l 2>/dev/null; echo "@reboot systemctl start qemu-guest-agent") | crontab -
 
 echo "All done, So Long and Thanks For All the Fish"
