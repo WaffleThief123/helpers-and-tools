@@ -15,7 +15,7 @@ echo "Hey Cyra, What is this box supposed to do in life?"
 read i
 
 echo "What's the SSH password for your vpn box?"
-read -sp 'Password: ' $rsync_password
+read -sp 'Password: ' rsync_password
 
 # Base Utility Install and prep
 apt update && apt install rsync sshpass neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common -y
