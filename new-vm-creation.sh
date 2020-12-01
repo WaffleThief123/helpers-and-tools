@@ -15,7 +15,7 @@ echo "Hey Cyra, What is this box supposed to do in life?"
 read i
 
 echo "What's the SSH password for your vpn box?"
-read -sp 'Password: ' $i
+read -sp 'Password: ' $rsync_password
 
 # Base Utility Install and prep
 apt update && apt install rsync sshpass neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common -y
@@ -36,11 +36,12 @@ usermod -aG sudo cyra && usermod -aG docker cyra
 
 # Pull ssh privkeys from remote backup
 mkdir /home/cyra/.ssh 
-sshpass -p "$i" rsync -azzvhr --info=progress2 john@vpn.wertyy102.tech:~/ssh/* /home/cyra/.ssh/
+sshpass -p "$rsync_password" rsync -azzvhr --info=progress2 john@vpn.wertyy102.tech:~/ssh/* /home/cyra/.ssh/
+rsync_password=NoPasswordForYou
 chmod 600 /home/cyra/.ssh/*
 chmod 700 /home/cyra/.ssh
 chown cyra:cyra /home/cyra/.ssh -R 
-i=NoPasswordForYou
+
 # Edit MOTD 
 
 cat << EOT > /etc/motd
