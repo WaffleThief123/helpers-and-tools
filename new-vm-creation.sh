@@ -13,12 +13,18 @@ fi
 
 echo "Hey Cyra, What is this box supposed to do in life?"
 read i
-
+######
+# Currently Unused and will fully implement Later
+# echo "What do you want the hostname to be?"
+# read NewHostname
+# echo "What do you want the IP to be?"
+# read NewIP
+#####
 echo "What's the SSH password for your vpn box?"
 read -sp 'Password: ' rsync_password
 
 # Base Utility Install and prep
-apt update && apt install rsync sshpass neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common qemu-guest-agent -y
+apt update && apt install rsync sshpass neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common qemu-guest-agent -y 2>/dev/null | grep packages | cut -d '.' -f 1
 sleep 1
 # Docker and Docker-Compose install
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -26,7 +32,7 @@ add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
    $(lsb_release -cs) \
    stable"
-apt update && apt-get install docker-ce docker-ce-cli containerd.io -y
+apt update && apt-get install docker-ce docker-ce-cli containerd.io -y 2>/dev/null | grep packages | cut -d '.' -f 1
 
 curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
@@ -35,7 +41,7 @@ chmod +x /usr/local/bin/docker-compose
 usermod -aG sudo cyra && usermod -aG docker cyra
 
 # Pull ssh privkeys from remote backup
-mkdir /home/cyra/.ssh 
+mkdir -p /home/cyra/.ssh 
 sshpass -p "$rsync_password" rsync -e "ssh -o StrictHostKeyChecking=no" -azzvhr --info=progress2 john@vpn.wertyy102.tech:~/ssh/* /home/cyra/.ssh/
 rsync_password=NoPasswordForYou
 chmod 600 /home/cyra/.ssh/*
@@ -57,7 +63,12 @@ This machine's purpose is to $i
 EOT
 
 
-# Add cron job to enable qemu-guest-agent on reboot
-(crontab -l 2>/dev/null; echo "@reboot systemctl start qemu-guest-agent") | crontab -
+# Add cron jobs
+# (crontab -l 2>/dev/null; echo "* * * * * <command>") | crontab -
+
+(crontab -l 2>/dev/null; echo "@reboot systemctl start qemu-guest-agent") | crontab -  # Qemu Guest Agent Start on Boot because currently systemctl enable is broken 
+
+
+# update hostname
 
 echo "All done, So Long and Thanks For All the Fish"
