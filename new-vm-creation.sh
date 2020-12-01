@@ -36,7 +36,7 @@ usermod -aG sudo cyra && usermod -aG docker cyra
 
 # Pull ssh privkeys from remote backup
 mkdir /home/cyra/.ssh 
-sshpass -p "$rsync_password" rsync -azzvhr --info=progress2 john@vpn.wertyy102.tech:~/ssh/* /home/cyra/.ssh/
+sshpass -p "$rsync_password" rsync -e "ssh -o StrictHostKeyChecking=no" -azzvhr --info=progress2 john@vpn.wertyy102.tech:~/ssh/* /home/cyra/.ssh/
 rsync_password=NoPasswordForYou
 chmod 600 /home/cyra/.ssh/*
 chmod 700 /home/cyra/.ssh
@@ -53,7 +53,7 @@ Sales, Export or Operation outside of this country may be construed as an attemp
 and will be commended as such. You will not be prosecuted unless unauthorized attempts to exfiltrate data occur. 
 aka: Root has logs, fuck off and fuck you.
 
-This machine's purpose is $i
+This machine's purpose is to $i
 EOT
 
 echo "All done, So Long and Thanks For All the Fish"
