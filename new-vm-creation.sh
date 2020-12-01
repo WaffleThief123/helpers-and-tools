@@ -18,10 +18,10 @@ echo "What's the SSH password for your vpn box?"
 read -sp 'Password: ' RSYNC_PASS
 
 # Base Utility Install and prep
-apt update && apt install rsync neofetch nmon vim curl htop wget build-essentials sudo apt-transport-https ca-certificates gnupg-agent software-properties-common -y
+apt update && apt install rsync neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common -y
 sleep 1
 # Docker and Docker-Compose install
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 apt update && apt-get install docker-ce docker-ce-cli containerd.io -y
 
