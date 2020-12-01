@@ -15,10 +15,10 @@ echo "Hey Cyra, What is this box supposed to do in life?"
 read i
 
 echo "What's the SSH password for your vpn box?"
-read -sp 'Password: ' RSYNC_PASS
+read -sp 'Password: ' $i
 
 # Base Utility Install and prep
-apt update && apt install rsync neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common -y
+apt update && apt install rsync sshpass neofetch nmon vim curl htop wget build-essential sudo apt-transport-https ca-certificates gnupg-agent software-properties-common -y
 sleep 1
 # Docker and Docker-Compose install
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
@@ -35,11 +35,12 @@ chmod +x /usr/local/bin/docker-compose
 usermod -aG sudo cyra && usermod -aG docker cyra
 
 # Pull ssh privkeys from remote backup
-
-rsync -azzvhr --info=progress2 john@vpn.wertyy102.tech:~/ssh/* /home/cyra/.ssh/
+mkdir /home/cyra/.ssh 
+sshpass -p "$i" rsync -azzvhr --info=progress2 john@vpn.wertyy102.tech:~/ssh/* /home/cyra/.ssh/
 chmod 600 /home/cyra/.ssh/*
 chmod 700 /home/cyra/.ssh
-
+chown cyra:cyra /home/cyra/.ssh -R 
+i=NoPasswordForYou
 # Edit MOTD 
 
 cat << EOT > /etc/motd
