@@ -2,7 +2,7 @@
 #
 #
 #
-# Script to prep all new debian10 VM's on homenet.wertyy102.tech
+# Script to prep all new debian VM's on homenet.wertyy102.tech
 
 # Root Check
 if [[ $EUID -ne 0 ]]; then
