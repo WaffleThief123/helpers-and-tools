@@ -14,7 +14,7 @@ chmod 775 /opt/emby/media-dir/Live\ Performances -R
 echo "Permissions Changed for all files in Media Directories." | systemd-cat -t emby-server -p info
 
 # API request to reindex library
-curl --location --request POST 'http://docker.set-l.space:8096/Library/Refresh?api_key=b56abfe7ff94469293837396d88a2791' -d ""
+curl --location --request POST 'http://embyserver.local:8096/Library/Refresh?api_key=b56abfe7ff94469293837396d88a2791' -d ""
 # logging
 #logging to systemd
 echo "Emby Libarary was reindexed.  Momentary Server CPU spike expected." | systemd-cat -t emby-server -p info
