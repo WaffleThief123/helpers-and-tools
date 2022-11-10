@@ -4,7 +4,7 @@
 show_help () {
 cat <<EOF 
 This script assumes several things,
-The first of which, is that you are running this from a debian or ubuntu machine,
+The first of which, is that you are running this from a debian or ubuntu machine with a PERC raid controller,
 Secondly, it requires some dependancies to be installed.
 If the dependancies are not found, then it will install them and continue. Those dependancies are as follows.
 curl, tar, alien, grep, sed, awk
