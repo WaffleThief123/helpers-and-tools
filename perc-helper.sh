@@ -9,8 +9,6 @@ echo "It also assumes you have only 1 dell PERC raid controller installed."
 echo "If any of these are not the case, press CTRL+C in the next 10 seconds"
 sleep 10
 
-# to install put all of this in a .sh file in the same directory as the dpkg and then `chmod +x ./path/to/this/script.sh` and then run it as root. It'll do the background  magic to install it and symlink it to your executable path correctly as well as give some useful data out of the gate.  Also working on some alerting tooling too but after i finish this. 
-
 install_dependancies () {
     apt -y --quiet install alien curl tar grep
 }
