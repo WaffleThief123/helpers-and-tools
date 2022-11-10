@@ -2,14 +2,18 @@
 
 
 show_help () {
-echo "This script assumes several things,"
-echo "The first of which, is that you are running this from a debian or ubuntu machine,"
-echo "Secondly, it requires some dependancies to be installed."
-echo "If the dependancies are not found, then it will install and continue. Those dependancies are as follows."
-echo "curl, tar, alien, grep, sed, awk."
-echo "It also assumes you have only 1 Dell PERC raid controller installed."
-echo "Once you've read this for the first time, append the following to the script to install perccli."
-echo "--no-dry-run"
+cat <<EOF 
+This script assumes several things,
+The first of which, is that you are running this from a debian or ubuntu machine,
+Secondly, it requires some dependancies to be installed.
+If the dependancies are not found, then it will install them and continue. Those dependancies are as follows.
+curl, tar, alien, grep, sed, awk
+Once you've read this for the first time, append the following to the script to install perccli.
+--no-dry-run
+The command should look like this.
+/path/to/this/script.sh --no-dry-run
+
+EOF
 }
 
 
@@ -21,7 +25,7 @@ install_dependancies () {
 install_perccli() {
     curl --user-agent "Script from github.com/wafflethief123/helpers-and-tools/ Please don't derez me, I'm just a program!" "https://dl.dell.com/FOLDER04470715M/1/perccli_7.1-007.0127_linux.tar.gz?uid=979e4e96-8bde-4666-2305-3b1aed3f59e9&fn=perccli_7.1-007.0127_linux.tar.gz" -o ./perccli_7.1-007.0127_linux.tar.gz
     tar xzf ./perccli_7.1-007.0127_linux.tar.gz || echo "Failed to unpack tarball! Exiting Now!" exit 1
-    cd ./Linux/
+    cd ./Linux/ || echo "Could not find required directory! Aborting!" && exit 1
     alien --to-deb --scripts --target=amd64 --install ./perccli-007.0127.0000.0000-1.noarch.rpm 
     ln -s /opt/MegaRAID/perccli/perccli64 /usr/bin/perccli
 
@@ -66,6 +70,7 @@ get_physical_disk_info () {
 ######
 
 if [ "${1}" == "--no-dry-run" ]; then 
+    install_dependancies
     install_perccli
     get_perc_info
 else
