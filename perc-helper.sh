@@ -23,18 +23,6 @@ alien --to-deb --scripts --target=amd64 --install ./perccli-007.0127.0000.0000-1
 ln -s /opt/MegaRAID/perccli/perccli64 /usr/bin/perccli
 }
 
-
-#get_useful_info () {
-##This category is to establish variables to use later..
-#
-#ProductName=$(perccli /c0 show | grep -E "Product Name" | awk 'BEGIN {FS= "="};{print $2}')
-#SerialNumber=$(perccli /c0 show | grep -E "Serial Number" | awk 'BEGIN {FS= "="};{print $2}')
-#DriveGroups=$(perccli /c0 show | grep -E "Drive Groups" | awk 'BEGIN {FS= "="};{print $2}')
-#VirtualDriveCount=$(perccli /c0 show | grep -E "Virtual Drives" | awk 'BEGIN {FS= "="};{print $2}')
-#
-#echo "$ProductName   $SerialNumber   $DriveGroups   $VirtualDriveCount"
-#}
-
 get_physical_disk_info () {
     PhysicalDiskCount="$(perccli /c0 show all | grep -E "Physical Drives" | awk 'BEGIN {FS= "="};{print $2}')"
     AddLines="$(("$PhysicalDiskCount" + 6))"
@@ -55,8 +43,6 @@ install_perccli
 echo "Dell PERC Raid Controller Utilities have been installed!"
 echo "It can be run by the command 'perccli' "
 echo "Here's some useful info about your PERC hardware and system!"
-# I would use the get_useful_info function but that is still WIP... 
-# So we get this instead....  - Cyra, 2022-11-09
 
 ProductName=$(perccli /c0 show | grep -E "Product Name" | awk 'BEGIN {FS= "="};{print $2}')
 echo "Raid controller Model: $ProductName"
