@@ -67,7 +67,7 @@ get_physical_disk_info () {
 
 ###
 #  End Functions
-######
+###
 
 if [ "${1}" == "--no-dry-run" ]; then 
     install_dependancies
