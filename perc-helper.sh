@@ -25,7 +25,7 @@ install_dependancies () {
 install_perccli() {
     curl --user-agent "Script from github.com/wafflethief123/helpers-and-tools/ Please don't derez me, I'm just a program!" "https://dl.dell.com/FOLDER04470715M/1/perccli_7.1-007.0127_linux.tar.gz?uid=979e4e96-8bde-4666-2305-3b1aed3f59e9&fn=perccli_7.1-007.0127_linux.tar.gz" -o ./perccli_7.1-007.0127_linux.tar.gz
     tar xzf ./perccli_7.1-007.0127_linux.tar.gz || echo "Failed to unpack tarball! Exiting Now!" exit 1
-    cd ./Linux/ || echo "Could not find required directory! Aborting!" && exit 1
+    cd ./Linux/ || echo "Could not find required directory! Aborting!"
     alien --to-deb --scripts --target=amd64 --install ./perccli-007.0127.0000.0000-1.noarch.rpm 
     ln -s /opt/MegaRAID/perccli/perccli64 /usr/bin/perccli
 
