@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# move this to your /root/ directory on your dell server running proxmox
 
 echo "This script assumes several things,"
 echo "The first of which, is that you are running this from a debian or ubuntu machine,"
