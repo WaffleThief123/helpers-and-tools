@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 
+
+show_help () {
 echo "This script assumes several things,"
 echo "The first of which, is that you are running this from a debian or ubuntu machine,"
 echo "Secondly, it requires some dependancies to be installed."
 echo "If the dependancies are not found, then it will install and continue. Those dependancies are as follows."
 echo "curl, tar, alien, grep, sed, awk."
 echo "It also assumes you have only 1 dell PERC raid controller installed."
-echo "If any of these are not the case, press CTRL+C in the next 10 seconds"
-sleep 10
+}
+
 
 install_dependancies () {
     apt -y --quiet install alien curl tar grep
 }
+
 
 install_perccli() {
 curl --user-agent "Script from github.com/wafflethief123/helpers-and-tools/ Please don't derez me, I'm just a program!" "https://dl.dell.com/FOLDER04470715M/1/perccli_7.1-007.0127_linux.tar.gz?uid=979e4e96-8bde-4666-2305-3b1aed3f59e9&fn=perccli_7.1-007.0127_linux.tar.gz" -o ./perccli_7.1-007.0127_linux.tar.gz
@@ -20,6 +23,7 @@ cd ./Linux/
 alien --to-deb --scripts --target=amd64 --install ./perccli-007.0127.0000.0000-1.noarch.rpm 
 ln -s /opt/MegaRAID/perccli/perccli64 /usr/bin/perccli
 }
+
 
 get_physical_disk_info () {
     PhysicalDiskCount="$(perccli /c0 show all | grep -E "Physical Drives" | awk 'BEGIN {FS= "="};{print $2}')"
@@ -36,6 +40,7 @@ get_physical_disk_info () {
     echo "SeSz = Sector Size"
     echo "Sp = Spun; U for Up, D for Down"
 }
+
 
 install_perccli
 echo "Dell PERC Raid Controller Utilities have been installed!"
@@ -54,5 +59,3 @@ DriveGroups=$(perccli /c0 show | grep -E "Drive Groups" | awk 'BEGIN {FS= "="};{
 echo "Drive Group Count: $DriveGroups"
 VirtualDriveCount=$(perccli /c0 show | grep -E "Virtual Drives" | awk 'BEGIN {FS= "="};{print $2}')
 echo "Virtual Drive Count: $VirtualDriveCount"
-
-echo "Thanks for letting me be a helpful program!"
