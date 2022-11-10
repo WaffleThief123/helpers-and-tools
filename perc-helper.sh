@@ -65,6 +65,16 @@ get_physical_disk_info () {
     echo "SeSz = Sector Size | Sp = Disk Spun Up or Down"
 }
 
+function yesnomaybe {
+    while true; do
+        read -p "$* [yes/no/y/n]: " yn
+        case $yn in
+            [Yy]*) echo "Yes recieved!" ; return 0 ;;  
+            [Nn]*) echo "No recvieved!" ; return 1 ;;
+            *) echo "Invalid Input Recieved, Please Try Again." ;;
+        esac
+    done
+}
 
 ###
 #  End Functions
@@ -73,7 +83,7 @@ get_physical_disk_info () {
 if [ "${1}" == "--no-dry-run" ]; then 
     install_dependancies
     install_perccli
-    get_perc_info
+    yesnomaybe "Do you want to see info about your PERC Controller and attached drives?" && get_perc_info
 else
     show_help
     exit 1
