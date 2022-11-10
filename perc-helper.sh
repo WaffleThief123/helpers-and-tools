@@ -58,6 +58,7 @@ get_physical_disk_info () {
     PhysicalDiskCount="$(perccli /c0 show all | grep -E "Physical Drives" | awk 'BEGIN {FS= "="};{print $2}')"
     AddLines="$(("$PhysicalDiskCount" + 6))"
     perccli /c0 show all | grep -E "PD LIST" -A $AddLines
+    echo "Column Key:"
     echo "EID = Enclosure Device ID | Slt = Slot Number | DID = Device ID"
     echo "DG = Drive Group | Intf = Inteface Type | Med = Media Type"
     echo "SED = Self Encryptive Drive | PI = Protection Info"
