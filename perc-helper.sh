@@ -76,6 +76,15 @@ function yesnomaybe {
     done
 }
 
+nobody_at_dell_can_agree_on_where_slot_numbers_start () {
+    for i in $(TotalLines=$(echo "$(("$(perccli /c0 show all | grep -E "Physical Drives" | awk 'BEGIN {FS= "="};{print $2}')"+6))") && perccli /c0 show all | grep -E "PD LIST" -A $TotalLines | awk '{print $2}'| sed '1,6d' | sed '$d') 
+    do echo "Drive Slot $i" 
+    perccli /c0 /e32 /s$i show all | egrep -i "Error Count|Failure|alert flagged by drive|SN"
+    echo ""
+    done
+
+}
+
 ###
 #  End Functions
 ###
