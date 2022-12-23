@@ -34,6 +34,18 @@ install_perccli() {
 }
 
 
+install_megaraid() {
+    curl --user-agent "Script from github.com/wafflethief123/helpers-and-tools/ Please don't derez me, I'm just a program!" "wget https://docs.broadcom.com/docs-and-downloads/raid-controllers/raid-controllers-common-files/8-07-14_MegaCLI.zip" -o ./megacli_8-07-14.zip
+    unzip ./megacli_8-08-14.zip || echo "Failed to Unzip File. Aborting!" exit 1
+    cd ./Linux/ || echo "Could not find required directory! Aborting!"
+    alien --to-deb --scripts --target=amd64 --install ./perccli-007.0127.0000.0000-1.noarch.rpm 
+    ln -s /opt/MegaRAID/MegaCli/MegaCli64 /usr/bin/megacli
+    
+    echo "Broadcom MegaRaid Controller Utility has been installed!"
+    echo "It can be run by the command 'megacli' "
+}
+
+
 get_perc_info () {
     echo "Here's some useful info about your PERC hardware and system!"
     ProductName=$(perccli /c0 show | grep -E "Product Name" | awk 'BEGIN {FS= "="};{print $2}')
