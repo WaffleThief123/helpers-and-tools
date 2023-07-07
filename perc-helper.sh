@@ -94,7 +94,6 @@ nobody_at_dell_can_agree_on_where_slot_numbers_start () {
     perccli /c0 /e32 /s$i show all | egrep -i "Error Count|Failure|alert flagged by drive|SN"
     echo ""
     done
-
 }
 
 ###
