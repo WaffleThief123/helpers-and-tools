@@ -72,11 +72,3 @@ case $CHOICE in
             ;;
 esac
 
-echo "END OF LINE"
-#######################################
-#                                     #
-#   This Script was written by        #
-#       Qwerty Keyboarder             #
-#  https://github.com/WaffleThief123  #
-#                                     #
-#######################################

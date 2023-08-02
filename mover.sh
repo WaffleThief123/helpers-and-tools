@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ###########
 #            Piracy is a crime
 # So like, Don't tell anyone?
@@ -18,4 +18,4 @@ cd $(ExtractionDir)
 # Yes this works for TV series as well.
 unrar e -r -o- *.rar
 # Cleans up rar files when done, including all the bullshit .r00 ones
-for i in {00..50}; do find . -type f -name "*.r$i" -exec rm  {} \; ; done;  find . -type f -name "*.rar" -exec rm  {} \;
+for i in {00..90}; do find . -type f -name "*.r$i" -exec rm  {} \; ; done;  find . -type f -name "*.rar" -exec rm  {} \;

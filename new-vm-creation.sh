@@ -1,7 +1,6 @@
-#!/bin/bash
-#
-#
-#
+#!/usr/bin/env bash
+
+
 # Script to prep all new debian VM's on homenet.wertyy102.tech
 
 # Root Check
@@ -50,17 +49,7 @@ chown cyra:cyra /home/cyra/.ssh -R
 
 # Edit MOTD 
 
-cat << EOT > /etc/motd
-This is a research network not operated by the US Department of Defense in any way, is not endorsed by any US Nuclear Regulatory Authority,
-and is not affiliated with the United States Departments of Energy or Interior.
-Its use is solely for the use of its registered members and affiliate organizations.
-Violations will be prosecuted to the full extent of the jam, c'mon and slam!
-Sales, Export or Operation off planet earth may be construed as an attempt to violate existing copyright and trademarks,
-and will be commended as such. You will not be prosecuted unless unauthorized attempts to exfiltrate data occur.
-aka: Root has logs, fuck off and fuck you.
-
-This machine's purpose is to $i
-EOT
+cat ./motd.txt > /etc/motd
 
 
 # Add cron jobs
