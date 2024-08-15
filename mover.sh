@@ -11,7 +11,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-read -p "What is the parent directory of all the things you want to extract?" ExtrationDir
+read -rp "What is the parent directory of all the things you want to extract?" ExtrationDir
 cd $(ExtractionDir)
 
 # unrar all files in a directory, recursively
