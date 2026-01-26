@@ -9,12 +9,6 @@ import os
 import sys
 from collections import defaultdict
 
-try:
-    import qbittorrentapi
-except ImportError:
-    sys.exit("Missing dependency: pip install qbittorrentapi")
-
-
 ERROR_STATES = {"error", "missingFiles"}
 
 
@@ -127,7 +121,22 @@ def find_torrent_location(torrent, files, file_index):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Relocate qBittorrent torrents to paths under a search root"
+        description="Relocate qBittorrent torrents to paths under a search root.",
+        epilog=(
+            "examples:\n"
+            "  %(prog)s --dry-run\n"
+            "      Preview relocations without making changes.\n"
+            "\n"
+            "  %(prog)s --errored-only\n"
+            "      Only process torrents in error/missing-files state.\n"
+            "\n"
+            "  %(prog)s --search-root /mnt/data/ --host 192.168.1.50 --port 9090\n"
+            "      Search a custom path on a remote qBittorrent instance.\n"
+            "\n"
+            "  %(prog)s --errored-only --dry-run\n"
+            "      Preview what would happen for errored torrents only.\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
         "--host", default="localhost", help="qBittorrent Web UI host (default: localhost)"
@@ -153,6 +162,11 @@ def main():
         help="Only process torrents in error or missing-files state",
     )
     args = parser.parse_args()
+
+    try:
+        import qbittorrentapi
+    except ImportError:
+        sys.exit("Missing dependency: pip install qbittorrentapi")
 
     # Connect
     client = qbittorrentapi.Client(
