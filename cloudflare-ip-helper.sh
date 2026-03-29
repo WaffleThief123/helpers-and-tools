@@ -1,18 +1,21 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 NGINX_CONTAINER="nginx"
 OUTPUT_FILE=""
+RELOAD_NGINX=false
 
 usage() {
-  echo "Usage: $(basename "$0") -o <output_file>"
+  echo "Usage: $(basename "$0") -o <output_file> [-r]"
   echo "  -o  Path to write the generated cloudflare-ips.conf"
+  echo "  -r  Test and reload nginx after writing the file"
   exit 1
 }
 
-while getopts "o:" opt; do
+while getopts "o:r" opt; do
   case $opt in
     o) OUTPUT_FILE="$OPTARG" ;;
+    r) RELOAD_NGINX=true ;;
     *) usage ;;
   esac
 done
@@ -56,12 +59,16 @@ log "Got $COUNT IP ranges."
 cp "$TEMP_FILE" "$OUTPUT_FILE"
 log "Written to $OUTPUT_FILE"
 
-log "Testing nginx config..."
-if docker exec "$NGINX_CONTAINER" nginx -t 2>&1; then
-  log "Config OK, reloading nginx..."
-  docker exec "$NGINX_CONTAINER" nginx -s reload
-  log "Done."
+if [[ "$RELOAD_NGINX" == true ]]; then
+  log "Testing nginx config..."
+  if docker exec "$NGINX_CONTAINER" nginx -t 2>&1; then
+    log "Config OK, reloading nginx..."
+    docker exec "$NGINX_CONTAINER" nginx -s reload
+    log "Done."
+  else
+    log "ERROR: nginx config test failed. Not reloading."
+    exit 1
+  fi
 else
-  log "ERROR: nginx config test failed. Not reloading."
-  exit 1
+  log "Skipping nginx reload (-r not specified)."
 fi
