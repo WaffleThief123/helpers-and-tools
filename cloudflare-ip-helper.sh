@@ -27,7 +27,7 @@ TEMP_FILE="$(mktemp)"
 cleanup() { rm -f "$TEMP_FILE"; }
 trap cleanup EXIT
 
-log() { echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] $*"; }
+log() { echo "[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] $*" >&2; }
 
 log "Fetching Cloudflare IP ranges..."
 
@@ -36,17 +36,17 @@ log "Fetching Cloudflare IP ranges..."
   echo "# Source: https://www.cloudflare.com/ips"
   echo "# Do not edit manually."
   echo ""
-
-  for url in https://www.cloudflare.com/ips-v4 https://www.cloudflare.com/ips-v6; do
-    log "Fetching $url"
-    curl -fsSL --max-time 30 "$url" | while read -r cidr; do
-      [[ -z "$cidr" ]] && continue
-      echo "set_real_ip_from ${cidr};"
-    done
-  done
-
-  echo "real_ip_header CF-Connecting-IP;"
 } > "$TEMP_FILE"
+
+for url in https://www.cloudflare.com/ips-v4 https://www.cloudflare.com/ips-v6; do
+  log "Fetching $url"
+  curl -fsSL --max-time 30 "$url" | while read -r cidr; do
+    [[ -z "$cidr" ]] && continue
+    echo "set_real_ip_from ${cidr};"
+  done
+done >> "$TEMP_FILE"
+
+echo "real_ip_header CF-Connecting-IP;" >> "$TEMP_FILE"
 
 COUNT=$(grep -c "set_real_ip_from" "$TEMP_FILE" || true)
 if [[ "$COUNT" -lt 10 ]]; then
